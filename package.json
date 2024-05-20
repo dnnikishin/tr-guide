@@ -45,7 +45,7 @@
     "reflect-metadata": "0.1.13",
     "rimraf": "2.6.3",
     "rxjs": "6.5.2",
-    "sharp": "^0.22.1",
+    "sharp": "^0.29.3",
     "swagger-ui-express": "4.0.7",
     "typeorm": "0.2.18",
     "typeorm-transactional-cls-hooked": "0.1.8",
