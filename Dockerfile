@@ -1,7 +1,7 @@
-FROM node:alpine
+FROM node:16
 
 # Установка Python, make и g++ для сборки модулей node-gyp
-RUN apk add --no-cache python3 make g++
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/node/app
 
