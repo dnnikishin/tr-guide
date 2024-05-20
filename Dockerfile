@@ -1,4 +1,4 @@
-FROM node:16-buster
+FROM node:18
 
 # Установка Python, make и g++ для сборки модулей node-gyp
 RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
