@@ -1,10 +1,12 @@
 FROM node:alpine
 
 WORKDIR /home/node/app
-COPY dist/ /home/node/app
-RUN npm i joi
-RUN npm i --production
 
-CMD ["node", "src/main.js"]
+COPY package.json yarn.lock ./
+RUN yarn install
+
+COPY . .
+RUN yarn build
 
 EXPOSE 5000
+CMD ["node", "dist/app.js"]
