@@ -1,0 +1,82 @@
+---
+- name: Update system
+  tags:
+    - clean-install
+  become: yes
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400 #One day
+
+- name: Update all packages to the latest version
+  become: yes
+  apt:
+    name:
+    - aptitude
+    - python3-apt
+    - software-properties-common
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - python-pip
+  tags:
+  - traefik
+
+- name: install pip-packages
+  pip:
+    executable: pip
+    name:
+      - docker
+      - docker-compose
+      - urlparse2
+      - docker-py
+  tags: 
+  - traefik
+
+- name: Ensures traefik dir exists
+  file:
+    path: /opt/traefik
+    state: directory
+    owner: root
+    group: root
+  tags: 
+  - traefik
+- copy:
+    src: docker-compose.yml
+    dest: /opt/traefik/docker-compose.yml
+    owner: root
+    group: root
+    mode: 0644
+  tags: 
+  - traefik
+- name: Change file ownership, group and permissions
+  file:
+    path: /opt/traefik/acme.json
+    owner: root
+    group: root
+    state: touch
+    mode: 0600
+  tags: 
+  - traefik
+- name: Adding traefik.toml file
+  vars:
+    - email: rinat.muhamedgaliev@citronium.com
+  template:
+    src: traefik.toml.j2
+    dest: /opt/traefik/traefik.toml
+    mode: 0644
+  tags: 
+  - traefik
+- name: Create a network
+  docker_network:
+    name: web
+  tags: 
+  - traefik
+- name: run the service defined in my_project's docker-compose.yml
+  docker_service:
+    state: present
+    project_name: traefik
+    project_src: /opt/traefik
+  tags: 
+  - traefik
+

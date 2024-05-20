@@ -1,0 +1,61 @@
+---
+  - name: Create a folder for destination docker-compose
+    file:
+      path: /usr/share/local/travel-guide
+      state: directory
+      owner: root
+      group: root
+    become: yes
+    tags:
+    - start
+
+  - name: copy docker-compose
+    copy: 
+      src: docker-compose.yaml
+      dest: /usr/share/local/travel-guide
+      owner: root
+      group: root
+      mode: 0755
+    become: yes
+    tags:
+    - start
+  
+  - name: copy init.sql
+    copy:
+      src: init.sql
+      dest: /usr/share/local/travel-guide
+      owner: root
+      group: root
+      mode: 0755
+    become: yes
+    tags:
+      - start
+
+  - name: copy app.env 
+    copy: 
+      src: app.env 
+      dest: /usr/share/local/travel-guide
+      owner: root
+      group: root
+      mode: 0755
+    become: yes
+    tags:
+    - start
+
+  - name: copy postgres.env 
+    copy: 
+      src: postgres.env 
+      dest: /usr/share/local/travel-guide
+      owner: root
+      group: root
+      mode: 0755
+    become: yes
+    tags:
+      - start
+
+  - name: start docker-compose
+    command: docker compose -f /usr/share/local/travel-guide/docker-compose.yaml up -d
+    tags:
+    - start
+
+ 

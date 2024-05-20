@@ -1,0 +1,34 @@
+---
+  - name: Create a folder for destination
+    file:
+      path: /var/lib/museum/backend
+      state: directory
+    become: yes
+    tags:
+      - server
+
+  - name: copy dist to server
+    copy: 
+      src: dist.zip 
+      dest: /var/lib/museum/backend/
+    tags:
+      - dist
+
+  - name: unarchive dist
+    unarchive:
+      src: /var/lib/museum/backend/dist.zip
+      dest: /var/lib/museum/backend/
+      remote_src: yes
+    tags:
+      - dist
+
+  - name: restart travel2-backend
+    become: true
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: travel2-backend 
+    tags:
+      - dist
+
+ 
