@@ -15,7 +15,7 @@ services:
 
   app:
     build: .
-    image: registry.citronium.com/travel-api:0.0.1
+    image: travel-api:0.0.3
     container_name: travel-api
     ports:
       - 5000:5000
