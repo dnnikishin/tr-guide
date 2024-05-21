@@ -11,6 +11,8 @@ RUN yarn install
 COPY . .
 RUN yarn build
 COPY .env dist/.env
+COPY tsconfig.build.json dist/tsconfig.build.json
+COPY tsconfig.json dist/tsconfig.json
 
 EXPOSE 5000
 CMD ["node", "dist/src/main.js"]
