@@ -1,2 +1,0 @@
-[host]
-192.168.122.183 ansible_host=192.168.122.183 ansible_user=anastasia ansible_password=asdfg ansible_become=yes ansible_become_password=1234 ansible_become_user=root 
