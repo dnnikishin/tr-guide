@@ -10,6 +10,7 @@ RUN yarn install
 
 COPY . .
 RUN yarn build
+COPY .env dist/.env
 
 EXPOSE 5000
 CMD ["node", "dist/src/main.js"]
