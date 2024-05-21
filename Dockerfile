@@ -1,10 +1,18 @@
-FROM node:alpine
+FROM node:9
 
-WORKDIR /home/node/app
-COPY dist/ /home/node/app
-RUN npm i joi
-RUN npm i --production
+# Create app directory
+WORKDIR /usr/src/app
 
-CMD ["node", "src/main.js"]
+# Install app dependencies
+COPY package*.json ./
+
+RUN npm install
+
+# Bundle app source
+COPY . .
+
+# Build the app
+RUN npm run build
 
 EXPOSE 5000
+CMD ["npm", "run", "start:prod"]
