@@ -1,4 +1,4 @@
-FROM node:16-buster
+FROM node:12-buster
 
 # Установка Python, make, g++ и libvips-dev для сборки sharp
 RUN apt-get update && apt-get install -y python3 make g++ libvips-dev && rm -rf /var/lib/apt/lists/*
